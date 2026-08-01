@@ -11,6 +11,8 @@ Research Studio began as a module inside a larger Windows product and was extrac
 
 This repository is intentionally a **source-free case study**. The extracted project does not yet carry a standalone redistribution license, so its implementation and portable builds remain private until that licensing boundary is resolved.
 
+![Research Studio guarded enrichment workflow](assets/research-studio-workflow.png)
+
 ## The problem
 
 Catalog enrichment is deceptively risky. The source database must remain trustworthy; model output may be incomplete or malformed; browser authentication must stay under user control; and each accepted result needs enough provenance to be audited or rolled back later.
@@ -74,6 +76,33 @@ The release process runs source verification, native Electron ABI checks, portab
 | Zod + JSON contracts | Runtime validation and versioned interchange boundaries |
 | Playwright | Guarded browser capture with manual authentication boundaries |
 | Optional .NET 8 engine | Preserved research-packet, search, and evidence tooling |
+
+### Trust-boundary sequence
+
+```mermaid
+sequenceDiagram
+    actor Reviewer
+    participant UI as React renderer
+    participant Bridge as Narrow Electron bridge
+    participant Service as Express service / named pipe
+    participant DB as SQLite working copy
+    participant Assistant as Embedded assistant session
+
+    Reviewer->>UI: Select source catalog
+    UI->>Bridge: Request guarded file selection
+    Bridge->>Service: Open read-only and create working copy
+    Service->>DB: Enable query_only on source; write only to copy
+    DB-->>UI: Return bounded catalog preview
+    Reviewer->>UI: Prepare batch (maximum five)
+    UI->>Assistant: Send evidence-first prompt
+    Reviewer->>Assistant: Complete sign-in, MFA, or CAPTCHA manually
+    Assistant-->>UI: Return untrusted structured response
+    UI->>Service: Validate schema, evidence, and bilingual fields
+    Service-->>Reviewer: Present validation results for approval
+    Reviewer->>Service: Approve versioned enrichment
+    Service->>DB: Persist to working copy and record provenance
+    Service-->>UI: Offer redacted export or enhanced copy
+```
 
 ## Verification strategy
 
