@@ -1,5 +1,8 @@
 # Research Studio — Engineering Case Study
 
+[![Documentation](https://github.com/NouraldinFarge/research-studio-case-study/actions/workflows/docs.yml/badge.svg)](https://github.com/NouraldinFarge/research-studio-case-study/actions/workflows/docs.yml)
+[![License: All rights reserved](https://img.shields.io/badge/license-all%20rights%20reserved-lightgrey.svg)](LICENSE.md)
+
 **A guarded, local-first desktop workflow for enriching a bilingual short-drama catalog without modifying its source database.**
 
 Active development · 2026 · Standalone alpha 0.1.0-alpha.20
@@ -15,6 +18,19 @@ Catalog enrichment is deceptively risky. The source database must remain trustwo
 Research Studio turns those constraints into an explicit review pipeline instead of treating enrichment as a one-click mutation.
 
 ## Workflow
+
+```mermaid
+flowchart LR
+    A["Read-only source catalog"] --> B["Consistent working copy"]
+    B --> C["Bounded evidence-first prompt"]
+    C --> D["Manual browser authentication"]
+    D --> E["Untrusted structured response"]
+    E --> F["Schema, evidence, and bilingual validation"]
+    F --> G{"Human approval"}
+    G -->|Approve| H["Versioned enrichment"]
+    G -->|Reject| I["Revise or discard"]
+    H --> J["Redacted export or enhanced copy"]
+```
 
 1. Open a compatible SQLite catalog in read-only preview mode.
 2. Create a consistent working copy before any write-capable operation.
@@ -63,6 +79,10 @@ The release process runs source verification, native Electron ABI checks, portab
 
 The project maintains focused gates for configuration, database safety, whole-library automation, redaction and protection boundaries, prompt safety and quality, capture tracking, API boundaries, embedded and named-pipe backends, packaged backend behavior, Electron native-module compatibility, and portable-release smoke testing.
 
+## My ownership
+
+I owned product direction, the read-only/working-copy safety model, architecture decisions, trust boundaries, validation and approval workflow, verification strategy, packaging decisions, technical review, and release approval. AI agents assisted with research, implementation, and iteration; their suggestions and generated output were treated as untrusted until reviewed and verified.
+
 ## Current boundary and next step
 
 The alpha keeps the proven Electron/Node workbench while a future Tauri/Rust native authority is evaluated. That migration is intentionally deferred until feature parity and recovery tests exist. The immediate public-release requirement is a reviewed standalone license and generated third-party notices.
@@ -74,3 +94,5 @@ Electron · React · TypeScript · Express · SQLite · Zod · Playwright · Vit
 ## Availability
 
 Source and binaries are not distributed from this repository. This page documents the engineering work without implying redistribution rights that have not been granted.
+
+The written case study is available for portfolio review under [`LICENSE.md`](LICENSE.md). See [`ROADMAP.md`](ROADMAP.md), [`CONTRIBUTING.md`](CONTRIBUTING.md), and [`SECURITY.md`](SECURITY.md) for the documentation and reporting boundaries.
