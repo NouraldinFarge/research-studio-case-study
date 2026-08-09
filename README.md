@@ -4,15 +4,15 @@
 [![Evidence: verified 2026-08-08](https://img.shields.io/badge/evidence-verified%202026--08--08-2563eb.svg)](docs/verification-evidence.md)
 [![License: All rights reserved](https://img.shields.io/badge/license-all%20rights%20reserved-lightgrey.svg)](LICENSE.md)
 
-**A guarded, local-first desktop workflow for enriching a Chinese/English short-drama catalog without modifying its source database.**
+**A guarded, local-first desktop workflow for enriching a bilingual Chinese-and-English short-drama catalog without modifying its source database.**
 
-Active private development · Windows x64 · Verified private alpha `0.1.0-alpha.21`
+Active private development · Windows x64 · Verified private build `v0.1.0-alpha.21`
 
 > **Application-source-free by design:** this public repository contains original documentation, publication-check automation, synthetic examples, and redistribution-safe visuals. The application source, portable builds, catalog, browser material, and private diagnostics remain private because a standalone redistribution license has not been reviewed.
 
 [Portfolio](https://nouraldinfarge.github.io) · [Evidence guide](docs/README.md) · [Verification snapshot](docs/verification-evidence.md) · [Threat model](docs/threat-model.md) · [Engineering lessons](docs/engineering-notes.md)
 
-![Research Studio workflow from a read-only Chinese and English catalog to a reviewed, recoverable export](assets/research-studio-workflow.png)
+![Research Studio workflow from a read-only bilingual Chinese-and-English catalog to a reviewed, recoverable export](assets/research-studio-workflow.png)
 
 *Synthetic workflow illustration. The sample titles are fabricated; no private catalog rows or application screenshots are shown.*
 
@@ -108,7 +108,7 @@ Opening a database never enables enrichment writes. The implementation uses an a
 
 The assistant runs inside the single Electron window in a dedicated persistent session. Authentication remains manual, while the application monitors response activity, correlates the visible answer with the active prompt pack, validates the returned contract, and preserves incomplete output for review or retry.
 
-Syntactically valid output is not treated as automatically correct. Quality gates check required Chinese/English fields, description substance, evidence shape, controlled tag ordering, expected record count, and record identity.
+Syntactically valid output is not treated as automatically correct. Quality gates check required Chinese- and English-language fields, description substance, evidence shape, controlled tag ordering, expected record count, and record identity.
 
 ## Architecture
 
@@ -205,7 +205,7 @@ The current private implementation uses Electron 42.8.1 and Node.js 24. Tauri/Ru
 | [`docs/engineering-notes.md`](docs/engineering-notes.md) | Resolved failures and lessons learned |
 | [`docs/synthetic-export.example.json`](docs/synthetic-export.example.json) | Fabricated output-shape example |
 | [`SECURITY.md`](SECURITY.md) | Private reporting and disclosure boundary |
-| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Safe documentation-contribution workflow |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Issue-first documentation-feedback and licensing boundary |
 | [`ROADMAP.md`](ROADMAP.md) | Evidence-driven documentation roadmap and explicit non-goals |
 | [`LICENSE.md`](LICENSE.md) | Case-study copyright and excluded-material boundary |
 

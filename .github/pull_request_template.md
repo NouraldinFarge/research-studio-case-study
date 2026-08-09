@@ -1,4 +1,11 @@
-# Documentation pull request
+# Approved documentation pull request
+
+> Unsolicited pull requests cannot be accepted under this repository's all-rights-reserved license. Open an issue first and proceed only after the maintainer confirms the scope and written contribution terms.
+
+## Authorization
+
+- Approved issue:
+- Written contribution terms confirmed by:
 
 ## Reader-facing improvement
 
@@ -10,6 +17,7 @@ Identify the existing public evidence that supports every changed technical clai
 
 ## Publication-boundary review
 
+- [ ] This change follows the scope and contribution terms agreed before work began
 - [ ] No application or upstream source, binaries, archives, catalogs, real records, credentials, sessions, conversations, HAR files, private diagnostics, or local paths were added
 - [ ] Every example is clearly fabricated and every visual is original or has reviewed redistribution rights
 - [ ] Ownership, AI-assistance, application availability, and licensing boundaries remain explicit

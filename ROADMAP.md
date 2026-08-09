@@ -5,7 +5,7 @@ This roadmap governs the public case study, not the private product backlog. Pub
 ## Current verified state
 
 - Source-free portfolio repository with original diagrams and a fabricated export fixture.
-- Dated alpha.21 verification matrix with explicit limitations.
+- Dated `v0.1.0-alpha.21` verification matrix with explicit limitations.
 - Database-safety, browser/model, network, production-transport, native-ABI, and rollback evidence.
 - Documented failures, design decisions, threat model, and AI-assisted development disclosure.
 - Automated Markdown and publication-boundary checks.

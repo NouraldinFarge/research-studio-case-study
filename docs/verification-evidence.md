@@ -1,6 +1,6 @@
 # Verification evidence
 
-This page records what was verified against private Research Studio `0.1.0-alpha.21` on 2026-08-08. It contains bounded results—not private logs, local paths, application source, catalogs, browser sessions, or binaries.
+This page records what was verified against private Research Studio `v0.1.0-alpha.21` on 2026-08-08. It contains bounded results—not private logs, local paths, application source, catalogs, browser sessions, or binaries.
 
 ## Claim semantics
 
