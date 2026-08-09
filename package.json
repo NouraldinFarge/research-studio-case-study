@@ -2,8 +2,14 @@
   "name": "research-studio-case-study-docs",
   "private": true,
   "version": "0.1.0",
+  "description": "Source-free engineering case study and evidence for the private Research Studio desktop application.",
   "scripts": {
-    "lint": "markdownlint-cli2 \"**/*.md\" \"#node_modules/**\""
+    "audit:publication": "node scripts/audit-publication.mjs",
+    "lint": "markdownlint-cli2 \"**/*.md\" \".github/**/*.md\" \"#node_modules/**\"",
+    "verify": "npm run lint && npm run audit:publication"
+  },
+  "engines": {
+    "node": ">=24"
   },
   "devDependencies": {
     "markdownlint-cli2": "0.23.2"

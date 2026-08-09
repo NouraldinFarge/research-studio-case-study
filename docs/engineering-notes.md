@@ -1,5 +1,9 @@
 # Engineering notes
 
+[Evidence guide](README.md) · [Design decisions](design-decisions.md) · [Threat model](threat-model.md) · [Verification snapshot](verification-evidence.md)
+
+The most important lesson was consistent across database, browser, and release failures: an intended boundary is not evidence. Each boundary needed an observable runtime check and a defined recovery path.
+
 ## Resolved failures that shaped the design
 
 ### Native-module ABI mismatch

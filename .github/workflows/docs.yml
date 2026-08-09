@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: documentation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     name: Lint case-study documentation
@@ -28,25 +32,5 @@ jobs:
       - name: Restore locked documentation dependencies
         run: npm ci
 
-      - name: Lint Markdown
-        run: npm run lint
-
-      - name: Enforce source-free publication boundary
-        shell: bash
-        run: |
-          forbidden_files="$(find . -type f \
-            \( -iname '*.zip' -o -iname '*.exe' -o -iname '*.dll' -o -iname '*.node' \
-               -o -iname '*.sqlite' -o -iname '*.sqlite3' -o -iname '*.db' -o -iname '*.har' \
-               -o -iname '*.pem' -o -iname '*.pfx' -o -iname '*.key' \) \
-            -not -path './.git/*' -not -path './node_modules/*' -print)"
-          if [ -n "$forbidden_files" ]; then
-            echo "Forbidden private or binary artifact detected:"
-            echo "$forbidden_files"
-            exit 1
-          fi
-          if grep -RIE \
-            --exclude-dir=.git --exclude-dir=node_modules --exclude='*.png' --exclude='*.svg' \
-            '(D:\\Extensions_Programs|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|Authorization:[[:space:]]*Bearer|Cookie:[[:space:]])' .; then
-            echo 'Potential local path, credential, or session material detected.'
-            exit 1
-          fi
+      - name: Verify documentation and publication boundary
+        run: npm run verify

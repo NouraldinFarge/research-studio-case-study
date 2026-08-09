@@ -1,18 +1,32 @@
-# Documentation roadmap
+# Evidence-driven roadmap
 
-## Near term
+This roadmap governs the public case study, not the private product backlog. Public work is prioritized by whether it improves accuracy, evidence quality, reader comprehension, or the licensing boundary.
 
-- Keep the architecture, trust boundaries, and verification claims aligned with the private implementation.
-- Refresh the dated verification matrix after material private architecture or release changes.
-- Resolve the standalone implementation license and third-party-notice process.
+## Current verified state
 
-## Completed case-study evidence
+- Source-free portfolio repository with original diagrams and a fabricated export fixture.
+- Dated alpha.21 verification matrix with explicit limitations.
+- Database-safety, browser/model, network, production-transport, native-ABI, and rollback evidence.
+- Documented failures, design decisions, threat model, and AI-assisted development disclosure.
+- Automated Markdown and publication-boundary checks.
 
-- Original workflow, database-safety, and release-recovery visuals.
-- A synthetic export fixture containing no private catalog content.
-- A dated evidence matrix with explicit limitations.
-- Resolved-failure and engineering-learning notes.
+## Next evidence improvements
 
-## Release boundary
+- Refresh the verification snapshot after a material private version, architecture, dependency, or release-pipeline change.
+- Add clean-machine Windows evidence when a release candidate is tested outside the development host.
+- Add only synthetic UI evidence if it can be reproduced without private catalog content, sessions, or unreviewed visual rights.
+- Record any future Tauri/Rust evaluation as a comparison, not as the implemented architecture.
+- Resolve written authorization, standalone licensing, product naming, visual-asset rights, and third-party notices before considering application publication.
 
-Source and binaries remain private until redistribution rights are reviewed and documented. A public release is not a near-term commitment and will not be created solely for portfolio appearance. Tauri/Rust remains a deferred evaluation, not a promised migration or description of the current Electron architecture.
+## Explicit non-goals
+
+- Publishing application source or binaries for portfolio appearance.
+- Creating an installer, service, or scheduled task.
+- Marketing the alpha as production-ready or fully autonomous.
+- Automating credentials, MFA, CAPTCHA, or website security challenges.
+- Publishing a real catalog subset, assistant conversation, browser capture, or generated enrichment result.
+- Claiming ownership of the upstream SilkReel application.
+
+## Application-release gate
+
+The public deliverable remains this case study until written authorization covers extracted source, Research Studio modifications, portable binary redistribution, product naming and branding, icons and visuals, upstream-derived documentation, third-party dependencies and notices, and any example schema or data.
