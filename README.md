@@ -10,7 +10,7 @@ Active private development · Windows x64 · Verified private alpha `0.1.0-alpha
 
 > **Application-source-free by design:** this public repository contains original documentation, publication-check automation, synthetic examples, and redistribution-safe visuals. The application source, portable builds, catalog, browser material, and private diagnostics remain private because a standalone redistribution license has not been reviewed.
 
-[Portfolio](https://nouraldin-farge-portfolio.site) · [Evidence guide](docs/README.md) · [Verification snapshot](docs/verification-evidence.md) · [Threat model](docs/threat-model.md) · [Engineering lessons](docs/engineering-notes.md)
+[Portfolio](https://nouraldinfarge.github.io) · [Evidence guide](docs/README.md) · [Verification snapshot](docs/verification-evidence.md) · [Threat model](docs/threat-model.md) · [Engineering lessons](docs/engineering-notes.md)
 
 ![Research Studio workflow from a read-only Chinese and English catalog to a reviewed, recoverable export](assets/research-studio-workflow.png)
 
