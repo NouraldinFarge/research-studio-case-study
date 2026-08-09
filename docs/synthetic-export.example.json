@@ -1,0 +1,23 @@
+{
+  "example_notice": "Fabricated portfolio fixture; not derived from the private catalog.",
+  "record_id": "synthetic-drama-001",
+  "source": {
+    "title_zh": "纸月灯影",
+    "description_zh": "一名修复师在虚构的临川城发现一盏会记录旧日誓言的纸灯。",
+    "preserved": true
+  },
+  "enrichment": {
+    "title_en": "Paper Moon, Lantern Shadows",
+    "description_en": "In the fictional city of Linchuan, a conservator discovers a paper lantern that records forgotten promises.",
+    "tags_zh": ["悬疑", "古装", "成长"],
+    "tags_en": ["mystery", "period drama", "personal growth"],
+    "validation_passed": true,
+    "human_approved": true,
+    "version": 1
+  },
+  "provenance": {
+    "fixture": true,
+    "evidence_url": "https://example.invalid/synthetic-source",
+    "reviewed_at": "2026-08-08T00:00:00Z"
+  }
+}

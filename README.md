@@ -5,11 +5,13 @@
 
 **A guarded, local-first desktop workflow for enriching a bilingual short-drama catalog without modifying its source database.**
 
-Active development · 2026 · Standalone alpha 0.1.0-alpha.20
+Active private development · 2026 · Verified private alpha 0.1.0-alpha.21
 
-Research Studio began as a module inside a larger Windows product and was extracted into a standalone Electron application. It helps a human reviewer inspect a Chinese short-drama catalog, prepare bounded evidence-first prompts, validate bilingual structured results, approve versioned enrichments, and export a documented enhanced SQLite copy.
+Research Studio began as a module inside a larger Windows product and was extracted into a standalone Electron application. It helps a human reviewer inspect a Chinese short-drama catalog, prepare bounded evidence-first prompts, validate and stage bilingual structured results, approve selected enrichments, and export a documented enhanced SQLite copy.
 
-This repository is intentionally a **source-free case study**. The extracted project does not yet carry a standalone redistribution license, so its implementation and portable builds remain private until that licensing boundary is resolved.
+> **Availability boundary:** This repository is intentionally a **source-free case study**. It contains original documentation and synthetic visuals only. The extracted project does not yet carry a reviewed standalone redistribution license, so application source, portable builds, catalog data, and browser material remain private.
+
+[View Nouraldin Farge's engineering portfolio](https://nouraldin-farge-engineering.awdsqecxzr.chatgpt.site).
 
 ![Research Studio guarded enrichment workflow](assets/research-studio-workflow.png)
 
@@ -39,9 +41,9 @@ flowchart LR
 3. Install or verify the versioned enrichment schema on that copy.
 4. Prepare a precision prompt or a bounded batch of at most five titles.
 5. Complete sign-in, MFA, and CAPTCHA manually in the embedded browser session.
-6. Capture the completed structured response and validate schema, evidence, and bilingual consistency.
-7. Review and approve the versioned result.
-8. Export JSON, CSV, JSONL, or a documented enhanced SQLite copy.
+6. Capture the completed structured response, validate schema, evidence, and bilingual consistency, and stage a versioned result in the working copy.
+7. Review and approve the staged result for normal enhanced-copy application.
+8. Export JSON, CSV, JSONL, or a documented enhanced SQLite copy; approved results are the default enhanced-copy input.
 
 ## Engineering decisions
 
@@ -49,13 +51,15 @@ flowchart LR
 
 Opening a database does not enable writes. Research Studio uses a read-only connection and SQLite `query_only`; write workflows require an explicit working copy. Schema changes create a backup first, and the original description remains untouched.
 
+![Synthetic diagram showing the source catalog isolated from the preview snapshot, working copy, and approved export](assets/database-safety.svg)
+
 ### Keep authentication out of the application backend
 
 The embedded assistant runs in a dedicated persistent Electron session. Authentication, MFA, and CAPTCHA remain manual, and credentials are not exposed to the renderer or local service.
 
 ### Treat model output as untrusted input
 
-Responses pass versioned JSON-schema checks, evidence requirements, bilingual consistency gates, and human approval before persistence. Batches are deliberately bounded to make review practical.
+Responses pass versioned JSON-schema checks, evidence requirements, and bilingual consistency gates before they are staged for review. Human approval controls normal enhanced-copy application; an explicitly selected validation-passed exception remains available for documented recovery workflows. Batches are deliberately bounded to make review practical.
 
 ### Minimize the desktop trust surface
 
@@ -64,6 +68,8 @@ The React renderer communicates through a narrow Electron bridge. In production,
 ### Make packaging verifiable and recoverable
 
 The release process runs source verification, native Electron ABI checks, portable smoke tests, archive validation, and transactional active-build deployment. It produces a portable ZIP rather than an installer.
+
+![Synthetic release sequence showing candidate verification, activation, and rollback to the prior build](assets/release-safety.svg)
 
 ## Architecture at a glance
 
@@ -98,27 +104,42 @@ sequenceDiagram
     Reviewer->>Assistant: Complete sign-in, MFA, or CAPTCHA manually
     Assistant-->>UI: Return untrusted structured response
     UI->>Service: Validate schema, evidence, and bilingual fields
+    Service->>DB: Stage versioned result and record provenance
     Service-->>Reviewer: Present validation results for approval
-    Reviewer->>Service: Approve versioned enrichment
-    Service->>DB: Persist to working copy and record provenance
-    Service-->>UI: Offer redacted export or enhanced copy
+    Reviewer->>Service: Approve staged enrichment
+    Service-->>UI: Offer redacted export or approved enhanced copy
 ```
 
 ## Verification strategy
 
 The project maintains focused gates for configuration, database safety, whole-library automation, redaction and protection boundaries, prompt safety and quality, capture tracking, API boundaries, embedded and named-pipe backends, packaged backend behavior, Electron native-module compatibility, and portable-release smoke testing.
 
+The dated 2026-08-08 private verification passed 14 focused test/boundary programs, both TypeScript projects, lint and formatting, the production build, packaged named-pipe smoke tests, SQLite integrity and foreign-key checks, Electron/Node native ABI checks, and a forced deployment rollback. Both the production-only and complete locked dependency trees reported zero known npm advisories at verification time.
+
+See the [verification evidence matrix](docs/verification-evidence.md) for exact claims and limitations. The [fabricated export fixture](docs/synthetic-export.example.json) demonstrates the documented shape without exposing a catalog record.
+
+## Failures that improved the system
+
+- A private alpha packaged the Node ABI 137 SQLite binary while Electron required ABI 146; the pipeline now executes a real query under both target runtimes.
+- Temporary-path backend startup was replaced by an in-process bundled service and application-private named pipe.
+- Assistant capture now binds visible output to the submitted prompt, response shape, record count, and ordered record numbers.
+- Portable deployment now has evidence for selective durable-state preservation and rollback after an injected activation failure.
+
+The detailed [engineering notes](docs/engineering-notes.md) explain these failures, the resulting design changes, and what I learned.
+
 ## My ownership
 
 I owned product direction, the read-only/working-copy safety model, architecture decisions, trust boundaries, validation and approval workflow, verification strategy, packaging decisions, technical review, and release approval. AI agents assisted with research, implementation, and iteration; their suggestions and generated output were treated as untrusted until reviewed and verified.
 
+Research Studio was extracted from the Research Studio module in SilkReel Windows 5.8.214. This case study does not imply that I created the entire upstream SilkReel application or own rights that were not granted.
+
 ## Current boundary and next step
 
-The alpha keeps the proven Electron/Node workbench while a future Tauri/Rust native authority is evaluated. That migration is intentionally deferred until feature parity and recovery tests exist. The immediate public-release requirement is a reviewed standalone license and generated third-party notices.
+The current private alpha uses Electron 42.8.1 and Node.js 24. A future Tauri/Rust native authority is only a deferred evaluation; it is not the current implementation. That migration would proceed only after feature parity and recovery tests exist. The immediate public-release requirement is written authorization, a reviewed standalone license, and generated third-party notices.
 
 ## Technology
 
-Electron · React · TypeScript · Express · SQLite · Zod · Playwright · Vite · Vitest · Node.js · Windows
+Electron · React · TypeScript · Express · SQLite · Zod · Playwright · Vite · Node.js · Windows
 
 ## Availability
 

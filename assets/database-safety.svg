@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Research Studio database safety boundary</title>
+  <desc id="desc">A source catalog flows to an app-owned preview snapshot, then to an explicit working copy where versioned enrichment is reviewed. Only approved results reach a documented export.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071525"/><stop offset="1" stop-color="#11152d"/></linearGradient>
+    <linearGradient id="safe" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#2dd4bf"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="16" flood-opacity=".28"/></filter>
+  </defs>
+  <rect width="1200" height="630" rx="28" fill="url(#bg)"/>
+  <text x="64" y="82" fill="#f8fafc" font-family="Segoe UI,Arial,sans-serif" font-size="36" font-weight="700">Database safety is a sequence, not a flag</text>
+  <text x="64" y="122" fill="#9fb4cf" font-family="Segoe UI,Arial,sans-serif" font-size="20">Every transition has a different authority and a testable failure boundary.</text>
+  <g font-family="Segoe UI,Arial,sans-serif" filter="url(#shadow)">
+    <g transform="translate(55 190)">
+      <rect width="220" height="260" rx="20" fill="#0b2034" stroke="#31516e"/>
+      <circle cx="44" cy="48" r="18" fill="#172c40" stroke="#60a5fa" stroke-width="3"/>
+      <path d="M35 48h18M44 39v18" stroke="#60a5fa" stroke-width="3"/>
+      <text x="28" y="96" fill="#f8fafc" font-size="23" font-weight="700">Source catalog</text>
+      <text x="28" y="132" fill="#9fb4cf" font-size="17">Never write-enabled</text>
+      <text x="28" y="164" fill="#9fb4cf" font-size="17">No schema changes</text>
+      <text x="28" y="196" fill="#9fb4cf" font-size="17">No WAL/SHM touch</text>
+      <rect x="28" y="218" width="164" height="28" rx="14" fill="#102b38"/>
+      <text x="48" y="238" fill="#5eead4" font-size="14" font-weight="700">READ-ONLY SOURCE</text>
+    </g>
+    <g transform="translate(340 190)">
+      <rect width="220" height="260" rx="20" fill="#0b2034" stroke="#31516e"/>
+      <path d="M31 35h28v26H31zM36 42h18M36 49h18M36 56h12" fill="none" stroke="#60a5fa" stroke-width="3"/>
+      <text x="28" y="96" fill="#f8fafc" font-size="23" font-weight="700">Preview snapshot</text>
+      <text x="28" y="132" fill="#9fb4cf" font-size="17">App-owned copy</text>
+      <text x="28" y="164" fill="#9fb4cf" font-size="17">query_only enabled</text>
+      <text x="28" y="196" fill="#9fb4cf" font-size="17">Safe inspection</text>
+      <rect x="28" y="218" width="154" height="28" rx="14" fill="#102b38"/>
+      <text x="47" y="238" fill="#5eead4" font-size="14" font-weight="700">DISPOSABLE COPY</text>
+    </g>
+    <g transform="translate(625 190)">
+      <rect width="220" height="260" rx="20" fill="#17162c" stroke="#6656a5"/>
+      <path d="M31 58c28 0 20-28 48-28M31 58c28 0 20 28 48 28" fill="none" stroke="#a78bfa" stroke-width="4"/>
+      <circle cx="31" cy="58" r="6" fill="#a78bfa"/><circle cx="79" cy="30" r="6" fill="#a78bfa"/><circle cx="79" cy="86" r="6" fill="#a78bfa"/>
+      <text x="28" y="126" fill="#f8fafc" font-size="23" font-weight="700">Working copy</text>
+      <text x="28" y="162" fill="#b9acd9" font-size="17">Explicit user action</text>
+      <text x="28" y="194" fill="#b9acd9" font-size="17">Backup before schema</text>
+      <text x="28" y="226" fill="#b9acd9" font-size="17">Versioned staging</text>
+    </g>
+    <g transform="translate(910 190)">
+      <rect width="235" height="260" rx="20" fill="#10271f" stroke="#2c6b55"/>
+      <path d="M36 48l13 13 28-31" fill="none" stroke="#5eead4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="28" y="106" fill="#f8fafc" font-size="23" font-weight="700">Approved export</text>
+      <text x="28" y="142" fill="#a9cabb" font-size="17">Human-reviewed rows</text>
+      <text x="28" y="174" fill="#a9cabb" font-size="17">Integrity checked</text>
+      <text x="28" y="206" fill="#a9cabb" font-size="17">Provenance included</text>
+      <rect x="28" y="222" width="174" height="28" rx="14" fill="#15392e"/>
+      <text x="45" y="242" fill="#5eead4" font-size="14" font-weight="700">DOCUMENTED OUTPUT</text>
+    </g>
+  </g>
+  <g fill="none" stroke="url(#safe)" stroke-width="4" stroke-linecap="round">
+    <path d="M280 320h48"/><path d="M565 320h48"/><path d="M850 320h48"/>
+  </g>
+  <g fill="#60a5fa"><path d="M328 320l-12-8v16z"/><path d="M613 320l-12-8v16z"/><path d="M898 320l-12-8v16z"/></g>
+  <rect x="64" y="505" width="1072" height="72" rx="18" fill="#091c2d" stroke="#24435e"/>
+  <text x="88" y="536" fill="#f8fafc" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">Invariant</text>
+  <text x="88" y="561" fill="#a8bdd3" font-family="Segoe UI,Arial,sans-serif" font-size="17">The original description remains untouched; proposed metadata is versioned separately until a reviewer approves it.</text>
+</svg>
