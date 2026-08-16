@@ -1,10 +1,10 @@
 # Approved documentation pull request
 
-> Unsolicited pull requests cannot be accepted under this repository's all-rights-reserved license. Open an issue first and proceed only after the maintainer confirms the scope and written contribution terms.
+> Unsolicited pull requests cannot be accepted under this repository's all-rights-reserved license. Proceed only after the maintainer confirms the scope and written contribution terms directly; public issues are not enabled.
 
 ## Authorization
 
-- Approved issue:
+- Approved scope:
 - Written contribution terms confirmed by:
 
 ## Reader-facing improvement

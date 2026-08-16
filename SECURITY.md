@@ -13,13 +13,13 @@ Security review therefore covers two related boundaries:
 
 Use [GitHub private vulnerability reporting](https://github.com/NouraldinFarge/research-studio-case-study/security/advisories/new). Private vulnerability reporting is enabled for this repository.
 
-Include only the minimum sanitized facts needed to explain the concern. Do not attach private source, binaries, catalogs, record content, credentials, browser-session artifacts, conversations, screenshots, HAR files, full diagnostics, or machine-identifying filesystem paths. If sensitive evidence is essential, first describe what exists and wait for a safe transfer method.
+Include only the minimum sanitized facts needed to explain the concern. Do not attach private source, binaries, catalogs, record content, credentials, browser-session artifacts, conversations, account/browser captures, real-data screenshots, HAR files, full diagnostics, or machine-identifying filesystem paths. If sensitive evidence is essential, first describe what exists and wait for a safe transfer method.
 
 Do not open a public issue, discussion, or pull request for a security or privacy concern.
 
 ## Documented safeguards
 
-The private alpha treats model output, database inputs, browser content, navigation targets, diagnostics, and exports as untrusted. Its documented controls include app-owned read-only snapshots, explicit working copies, schema and domain-quality validation, manual authentication, response correlation, human review, URL/DNS policy, redaction, a production named pipe, native-runtime smoke tests, and transactional portable rollback.
+The private alpha treats model output, database inputs, browser content, navigation targets, diagnostics, and exports as untrusted. Its documented controls include app-owned read-only snapshots, explicit working copies, schema and domain-quality validation, manual authentication, response correlation, staged drafts, explicit approval, approved-only exports, URL/DNS policy, redaction, a production named pipe, native-runtime smoke tests, and transactional portable rollback.
 
 The public documentation workflow separately rejects common application, database, archive, credential, and browser-capture artifacts; scans for private paths and credential material; checks relative links and image accessibility; validates JSON; and constrains SVG content.
 

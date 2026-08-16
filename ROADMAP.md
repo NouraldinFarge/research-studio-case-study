@@ -5,16 +5,19 @@ This roadmap governs the public case study, not the private product backlog. Pub
 ## Current verified state
 
 - Source-free portfolio repository with original diagrams and a fabricated export fixture.
-- Dated `v0.1.0-alpha.21` verification matrix with explicit limitations.
+- Dated `v0.1.0-alpha.24` verification matrix with explicit limitations.
 - Database-safety, browser/model, network, production-transport, native-ABI, and rollback evidence.
 - Documented failures, design decisions, threat model, and AI-assisted development disclosure.
+- Synthetic product tour covering library state, prompt provenance, approval, and approved-only exports.
 - Automated Markdown and publication-boundary checks.
 
 ## Next evidence improvements
 
 - Refresh the verification snapshot after a material private version, architecture, dependency, or release-pipeline change.
 - Add clean-machine Windows evidence when a release candidate is tested outside the development host.
-- Add only synthetic UI evidence if it can be reproduced without private catalog content, sessions, or unreviewed visual rights.
+- Add a synthetic campaign/activity-monitor capture only after it can be reproduced without an assistant account, conversation, provider branding, or private path.
+- Add an accessibility evidence page covering keyboard paths, names/roles, reduced motion, and compact layouts.
+- Add a versioned claim ledger so future snapshots clearly distinguish new, retained, and retired claims.
 - Record any future Tauri/Rust evaluation as a comparison, not as the implemented architecture.
 - Resolve written authorization, standalone licensing, product naming, visual-asset rights, and third-party notices before considering application publication.
 

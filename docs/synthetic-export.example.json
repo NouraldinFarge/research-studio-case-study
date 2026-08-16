@@ -9,11 +9,23 @@
     "preserved": true
   },
   "enrichment": {
+    "contract_version": "research-studio.enrichment.v3",
+    "research": {
+      "resolved_title_zh": "纸月灯影",
+      "identity_basis": "catalog_only",
+      "confidence": "low",
+      "evidence_anchors": ["年轻修复师", "记录旧日誓言的纸灯"],
+      "source_domains": [],
+      "uncertainties": ["No independent web identity exists for this fabricated fixture."]
+    },
     "best_english_title": "Paper Moon, Lantern Shadows",
     "detailed_description_zh": "在虚构的临川城，年轻修复师沈遥发现一盏能映出旧日誓言的纸灯。为查明灯中影像的来源，她追踪一批被遗忘的宫廷档案，并在真相与保护他人之间作出选择。",
     "detailed_description_en": "In the fictional city of Linchuan, a young conservator discovers a paper lantern that reveals forgotten promises. Tracing its images through lost court records, she must choose between exposing the truth and protecting the people tied to it.",
-    "tags_zh": ["悬疑", "古装", "成长"],
-    "tags_en": ["mystery", "period drama", "personal growth"]
+    "canonical_tags": [
+      { "id": "genre.mystery", "zh": "悬疑", "en": "mystery" },
+      { "id": "genre.period_drama", "zh": "古装", "en": "period drama" },
+      { "id": "theme.personal_growth", "zh": "成长", "en": "personal growth" }
+    ]
   },
   "review": {
     "validation_passed": true,
@@ -29,6 +41,6 @@
         "url": "https://example.invalid/synthetic-source"
       }
     ],
-    "reviewed_at": "2026-08-08T00:00:00Z"
+    "reviewed_at": "2026-08-15T00:00:00Z"
   }
 }

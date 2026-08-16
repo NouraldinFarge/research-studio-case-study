@@ -9,8 +9,11 @@ These concise records describe the implemented private alpha. They separate curr
 | Source inspection | App-owned consistent snapshot opened read-only with SQLite `query_only` | Make the no-touch source boundary observable |
 | Write authority | Explicit working copy before schema or enrichment writes | Keep source and editable state unmistakably separate |
 | Assistant integration | Embedded persistent session with manual authentication | Preserve one-window UX without automating credentials or challenges |
-| Prompt execution | One precision record or bounded batch of at most five | Keep correlation, recovery, and human review practical |
-| Model-output handling | Correlate, validate, version, stage, then review | Treat syntactically valid model text as untrusted input |
+| Prompt execution | Manual packs of 1–5; campaign pilot of 1 then batches of 2 | Keep correlation and recovery practical at whole-library scale |
+| Prompt identity | Lock active/used versions; create revisions | Preserve reproducible job provenance |
+| Model-output handling | Correlate and validate, stage on job, then explicitly approve | Prevent a model or automation loop from creating approved results |
+| Tag contract | Canonical IDs returned by the assistant; labels derived locally | Prevent bilingual drift, unknown tags, and mismatched pairs |
+| Restart handling | Reconcile interrupted job/run phases when a working copy opens | Avoid false permanently-running states after a crash |
 | Production transport | Application-private Windows named pipe | Avoid a packaged TCP listener and fixed-port collision |
 | Desktop boundary | Sandboxed, context-isolated renderer with a narrow preload bridge | Minimize renderer authority |
 | Distribution | Private versioned portable ZIP, never an installer | Keep deployment inspectable, movable, and reversible |
@@ -40,6 +43,30 @@ These concise records describe the implemented private alpha. They separate curr
 **Decision:** bind capture to the submitted prompt turn, expected object or array shape, expected record count, and ordered record numbers before applying domain-quality validation.
 
 **Consequence:** incomplete and mismatched responses stop safely and remain inspectable. Retry and continuation handling are product features rather than parser edge cases.
+
+## Staged draft before versioned result
+
+**Context:** a response can satisfy its JSON contract while still needing factual review. Persisting a normal result during capture would let the assistant or an automation loop cross the human decision boundary.
+
+**Decision:** successful capture and validation store a staged draft on the job only. Approval is a separate command that revalidates the draft and creates a new immutable result version. Every export queries approved results only.
+
+**Consequence:** the reviewer can inspect, correct, reject, or retry without contaminating exportable result history. Tests must prove both the absence of a result before approval and approved-only behavior in each export format.
+
+## Canonical tag identity, local labels
+
+**Context:** asking a model for independent Chinese and English tag arrays created ordering, translation, spelling, duplication, and taxonomy-membership failure modes.
+
+**Decision:** prompt contract v3 requests only canonical IDs from a local bilingual taxonomy. Research Studio validates evidence for the IDs and derives paired labels itself.
+
+**Consequence:** the prompt is longer because the allowed taxonomy is explicit, but stored tag identity and bilingual alignment become deterministic. Legacy results remain reviewable while new output uses schema v7 IDs.
+
+## Conservative whole-library campaign
+
+**Context:** a 31,521-title queue magnifies any correlation, provider, cost, or quality error. A large “run all” loop is unsafe even when individual batches are bounded.
+
+**Decision:** show workload before launch, require a one-title pilot, continue with batches of two, checkpoint every batch, exclude correction records, and stop on validation or zero-save failures. Never approve automatically.
+
+**Consequence:** throughput is intentionally lower than an unconstrained loop. The campaign is resumable, audit-friendly, and can be stopped without discarding completed batches.
 
 ## Private named pipe in packaged production
 

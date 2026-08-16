@@ -37,11 +37,17 @@ const requiredPaths = [
   "CONTRIBUTING.md",
   "ROADMAP.md",
   "assets/database-safety.svg",
+  "assets/product-approved-exports.jpg",
+  "assets/product-approved-review.jpg",
+  "assets/product-library-overview.jpg",
+  "assets/product-prompt-provenance.jpg",
   "assets/release-safety.svg",
   "assets/research-studio-workflow.png",
   "docs/README.md",
+  "docs/approval-and-automation.md",
   "docs/design-decisions.md",
   "docs/engineering-notes.md",
+  "docs/prompt-contract.md",
   "docs/synthetic-export.example.json",
   "docs/threat-model.md",
   "docs/verification-evidence.md",
@@ -124,6 +130,10 @@ for (const file of files) {
     if (extension === ".png") {
       const signature = await readFile(file.absolute).then((buffer) => buffer.subarray(0, 8).toString("hex"));
       if (signature !== "89504e470d0a1a0a") failures.push(`${file.relative}: invalid PNG signature`);
+    }
+    if (extension === ".jpg" || extension === ".jpeg") {
+      const signature = await readFile(file.absolute).then((buffer) => buffer.subarray(0, 3).toString("hex"));
+      if (signature !== "ffd8ff") failures.push(`${file.relative}: invalid JPEG signature`);
     }
     continue;
   }
