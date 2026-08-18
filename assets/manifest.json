@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "captureBoundary": "Original diagrams or deterministic synthetic-fixture captures only; no private catalog, browser/account state, machine path, or application binary.",
+  "assets": [
+    {
+      "path": "assets/database-safety.svg",
+      "mediaType": "image/svg+xml",
+      "width": 1200,
+      "height": 630,
+      "bytes": 5056,
+      "sha256": "3a4683a650a49b24f262485cd2c0fd52e215dde9b71c19678fb4d2ed9e92249d",
+      "classification": "original-diagram"
+    },
+    {
+      "path": "assets/product-approved-exports.jpg",
+      "mediaType": "image/jpeg",
+      "width": 1265,
+      "height": 500,
+      "bytes": 54119,
+      "sha256": "d3ed62f75db907d99da0dace2b238c8ecc64bf858f75fe60c639fa673030ba7e",
+      "classification": "synthetic-ui-capture"
+    },
+    {
+      "path": "assets/product-approved-review.jpg",
+      "mediaType": "image/jpeg",
+      "width": 1265,
+      "height": 712,
+      "bytes": 100806,
+      "sha256": "24a4119c0bff1cf3abbd6d869800145c76658307967058e184da28fcf732e8a6",
+      "classification": "synthetic-ui-capture"
+    },
+    {
+      "path": "assets/product-library-overview.jpg",
+      "mediaType": "image/jpeg",
+      "width": 1265,
+      "height": 345,
+      "bytes": 30082,
+      "sha256": "3756e5f6b84f9dec3537899090fbb595e450d8b9734f15b3de5841f5ecdd5757",
+      "classification": "synthetic-ui-capture"
+    },
+    {
+      "path": "assets/product-prompt-provenance.jpg",
+      "mediaType": "image/jpeg",
+      "width": 1265,
+      "height": 520,
+      "bytes": 61849,
+      "sha256": "d86209fe9b7fbd2b27c844e7ec8f8fb7cebf4f4b07acb6305b64ce38b453a53f",
+      "classification": "synthetic-ui-capture"
+    },
+    {
+      "path": "assets/release-safety.svg",
+      "mediaType": "image/svg+xml",
+      "width": 1200,
+      "height": 630,
+      "bytes": 4114,
+      "sha256": "f7eeebb1ca476761bbf24c7cdd8384084a8370ba3b42b3dcd4d2308ede06adf4",
+      "classification": "original-diagram"
+    },
+    {
+      "path": "assets/research-studio-workflow.png",
+      "mediaType": "image/png",
+      "width": 1774,
+      "height": 887,
+      "bytes": 1414110,
+      "sha256": "5938ff46b0e60152b691cffaf1e0a994cb4d12adb23668f82a9f55ae17bdd22a",
+      "classification": "original-diagram"
+    }
+  ]
+}

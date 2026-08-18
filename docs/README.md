@@ -16,15 +16,15 @@ Claims are intentionally narrower than aspirations. A passing structural or safe
 
 ## Evidence map
 
-| Document | Question answered | Evidence type |
-| --- | --- | --- |
-| [Design decisions](design-decisions.md) | Why were these boundaries and technologies chosen? | Reviewed implementation and alternatives |
-| [Threat model](threat-model.md) | What data and authority could be harmed, and how is that constrained? | Trust-boundary review and focused checks |
-| [Prompt contract](prompt-contract.md) | What does the evidence-first v3 prompt request and reject? | Implemented contract and synthetic evaluations |
-| [Approval and automation](approval-and-automation.md) | Where is the human boundary and how is whole-library work constrained? | Storage/API and campaign invariants |
-| [Verification evidence](verification-evidence.md) | What passed for alpha.24 on 2026-08-15? | Dated private verification summary |
-| [Engineering notes](engineering-notes.md) | Which failures changed the design? | Reproduced failures and regression gates |
-| [Synthetic export](synthetic-export.example.json) | What does a documented result look like? | Fabricated, non-catalog fixture |
+- [Design decisions](design-decisions.md) — why these boundaries and technologies were chosen; supported by the reviewed implementation and alternatives.
+- [Threat model](threat-model.md) — what data and authority could be harmed and how each is constrained; supported by trust-boundary review and focused checks.
+- [Prompt contract](prompt-contract.md) — what the evidence-first v3 prompt requests and rejects; supported by the implemented contract and synthetic evaluations.
+- [Approval and automation](approval-and-automation.md) — where the human boundary sits and how whole-library work is constrained; supported by storage/API and campaign invariants.
+- [Verification evidence](verification-evidence.md) — what passed for alpha.24 on 2026-08-15; a dated private-verification summary with explicit limits.
+- [Engineering notes](engineering-notes.md) — which reproduced failures changed the design and which regression gates resulted.
+- [Synthetic export](synthetic-export.example.json) — the documented result shape using a fabricated, non-catalog fixture.
+- [Asset manifest](../assets/manifest.json) — exact hashes, byte sizes, dimensions, and publication classification for every public image.
+- [Release-note draft](releases/case-study-2026.08.15.md) — metadata-only notes for the existing signed case-study tag; no binary or source attachment.
 
 ## Publication boundary
 

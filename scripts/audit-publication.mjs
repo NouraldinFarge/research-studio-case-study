@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { lstat, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -36,6 +37,7 @@ const requiredPaths = [
   "SECURITY.md",
   "CONTRIBUTING.md",
   "ROADMAP.md",
+  "assets/manifest.json",
   "assets/database-safety.svg",
   "assets/product-approved-exports.jpg",
   "assets/product-approved-review.jpg",
@@ -48,6 +50,7 @@ const requiredPaths = [
   "docs/design-decisions.md",
   "docs/engineering-notes.md",
   "docs/prompt-contract.md",
+  "docs/releases/case-study-2026.08.15.md",
   "docs/synthetic-export.example.json",
   "docs/threat-model.md",
   "docs/verification-evidence.md",
@@ -89,9 +92,49 @@ let relativeLinkCount = 0;
 let jsonCount = 0;
 let svgCount = 0;
 
+function pngDimensions(buffer) {
+  if (buffer.subarray(0, 8).toString("hex") !== "89504e470d0a1a0a") return null;
+  return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
+}
+
+function jpegDimensions(buffer) {
+  if (buffer[0] !== 0xff || buffer[1] !== 0xd8) return null;
+  const startOfFrameMarkers = new Set([
+    0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf,
+  ]);
+  let offset = 2;
+  while (offset + 8 < buffer.length) {
+    if (buffer[offset] !== 0xff) {
+      offset += 1;
+      continue;
+    }
+    while (buffer[offset] === 0xff) offset += 1;
+    const marker = buffer[offset];
+    offset += 1;
+    if (marker === 0xd9 || marker === 0xda) break;
+    if (marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) continue;
+    if (offset + 2 > buffer.length) break;
+    const length = buffer.readUInt16BE(offset);
+    if (length < 2 || offset + length > buffer.length) break;
+    if (startOfFrameMarkers.has(marker)) {
+      return { width: buffer.readUInt16BE(offset + 5), height: buffer.readUInt16BE(offset + 3) };
+    }
+    offset += length;
+  }
+  return null;
+}
+
+function svgDimensions(buffer) {
+  const source = buffer.toString("utf8");
+  const width = Number(source.match(/<svg\b[^>]*\bwidth=["'](\d+)["']/i)?.[1]);
+  const height = Number(source.match(/<svg\b[^>]*\bheight=["'](\d+)["']/i)?.[1]);
+  return Number.isInteger(width) && Number.isInteger(height) ? { width, height } : null;
+}
+
 async function walk(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     if (entry.isDirectory() && skippedDirectories.has(entry.name)) continue;
+    if (entry.isFile() && entry.name === ".git") continue;
     const absolute = path.join(directory, entry.name);
     const relative = path.relative(root, absolute).replaceAll(path.sep, "/");
     const stat = await lstat(absolute);
@@ -109,6 +152,85 @@ await walk(root);
 const relativeFiles = new Set(files.map((file) => file.relative));
 for (const required of requiredPaths) {
   if (!relativeFiles.has(required)) failures.push(`${required}: required presentation file is missing`);
+}
+
+const assetFiles = files.filter(
+  (file) => file.relative.startsWith("assets/") && file.relative !== "assets/manifest.json",
+);
+try {
+  const manifest = JSON.parse(await readFile(path.join(root, "assets", "manifest.json"), "utf8"));
+  if (manifest.schemaVersion !== 1) {
+    failures.push("assets/manifest.json: unsupported schemaVersion");
+  }
+  if (!String(manifest.captureBoundary ?? "").includes("synthetic-fixture")) {
+    failures.push("assets/manifest.json: synthetic/publication boundary is missing");
+  }
+
+  const entries = Array.isArray(manifest.assets) ? manifest.assets : [];
+  const entriesByPath = new Map();
+  for (const entry of entries) {
+    if (!entry || typeof entry.path !== "string" || !entry.path.startsWith("assets/")) {
+      failures.push("assets/manifest.json: every entry needs a repository-relative assets/ path");
+      continue;
+    }
+    if (entriesByPath.has(entry.path)) {
+      failures.push(`assets/manifest.json: duplicate entry ${entry.path}`);
+      continue;
+    }
+    entriesByPath.set(entry.path, entry);
+
+    if (!new Set(["original-diagram", "synthetic-ui-capture"]).has(entry.classification)) {
+      failures.push(`${entry.path}: unsupported publication classification`);
+    }
+    if (!/^[0-9a-f]{64}$/.test(entry.sha256 ?? "")) {
+      failures.push(`${entry.path}: manifest SHA-256 must be 64 lowercase hexadecimal characters`);
+    }
+
+    const file = assetFiles.find((candidate) => candidate.relative === entry.path);
+    if (!file) {
+      failures.push(`${entry.path}: manifest entry has no matching asset`);
+      continue;
+    }
+    const buffer = await readFile(file.absolute);
+    const digest = createHash("sha256").update(buffer).digest("hex");
+    if (digest !== entry.sha256) failures.push(`${entry.path}: SHA-256 differs from manifest`);
+    if (file.size !== entry.bytes) failures.push(`${entry.path}: byte size differs from manifest`);
+
+    const extension = path.extname(entry.path).toLowerCase();
+    const expectedMediaType =
+      extension === ".png"
+        ? "image/png"
+        : extension === ".jpg" || extension === ".jpeg"
+          ? "image/jpeg"
+          : extension === ".svg"
+            ? "image/svg+xml"
+            : null;
+    if (entry.mediaType !== expectedMediaType) {
+      failures.push(`${entry.path}: mediaType does not match the file extension`);
+    }
+
+    const dimensions =
+      extension === ".png"
+        ? pngDimensions(buffer)
+        : extension === ".jpg" || extension === ".jpeg"
+          ? jpegDimensions(buffer)
+          : extension === ".svg"
+            ? svgDimensions(buffer)
+            : null;
+    if (!dimensions) {
+      failures.push(`${entry.path}: dimensions could not be read`);
+    } else if (dimensions.width !== entry.width || dimensions.height !== entry.height) {
+      failures.push(`${entry.path}: dimensions differ from manifest`);
+    }
+  }
+
+  for (const file of assetFiles) {
+    if (!entriesByPath.has(file.relative)) {
+      failures.push(`${file.relative}: asset is missing from assets/manifest.json`);
+    }
+  }
+} catch (error) {
+  failures.push(`assets/manifest.json: could not validate manifest (${error.message})`);
 }
 
 for (const file of files) {
