@@ -9,7 +9,7 @@
 
 Private application · Windows x64 · Verified `v0.1.0-alpha.24` · Public repository is a source-free engineering case study
 
-[GitHub portfolio](https://github.com/NouraldinFarge) · [Evidence guide](docs/README.md) · [Verification matrix](docs/verification-evidence.md) · [Threat model](docs/threat-model.md) · [Engineering lessons](docs/engineering-notes.md)
+[Portfolio](https://nouraldinfarge.github.io/) · [Evidence guide](docs/README.md) · [Verification matrix](docs/verification-evidence.md) · [Threat model](docs/threat-model.md) · [Engineering lessons](docs/engineering-notes.md)
 
 [![Research Studio workflow from a read-only bilingual catalog through a protected working copy, validation, human approval, and recoverable export](assets/research-studio-workflow.png)](assets/research-studio-workflow.png)
 
